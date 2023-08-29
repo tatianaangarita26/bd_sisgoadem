@@ -6,8 +6,8 @@ import employeesRoutes from './routes/employees.routes.js'
 const app = express()
 
 app.get('/ping',async (req,res) => {
-    const result = await pool.query('SELECT 1 + 1 AS result')
-    res.json(result)
+    const [result] = await pool.query('SELECT 1 + 1 AS result')
+    res.json(result[0])
 })
 
 app.listen(5000)
