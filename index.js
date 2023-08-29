@@ -3,7 +3,10 @@ import { pool } from './db.js'
 
 const app = express()
 
-app.get('/ping',(req,res) => res.send('Pong'))
+app.get('/ping',async (req,res) => {
+    const result = await pool.query('SELECT 1 + 1 AS result')
+    res.json(result)
+})
 
 app.get('/employees',(req,res)=>res.send('Obteniendo Empleados'))
 app.post('/employees',(req,res)=>res.send('Creando Empleados'))
