@@ -1,6 +1,6 @@
 import express from 'express'
 import { pool } from './db.js'
-import employeesRoutes from './routes/sisgoadem.routes.js'
+import sisgoademRoutes from './routes/sisgoadem.routes.js'
 
 
 const app = express()
@@ -12,5 +12,5 @@ app.get('/ping',async (req,res) => {
 
 app.use(sisgoademRoutes)
 
-app.listen(5000)
-console.log('Servidor en el puerto', 5000)
+app.listen(3000)
+console.log('Servidor en el puerto', 3000)

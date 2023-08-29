@@ -1,11 +1,12 @@
 import { Router } from "express";
+import { getSisgoadem, createSisgoadem, updateSisgoadem, deleteSisgoadem } from "../controllers/sisgoadem.controller";
 
 const router = Router()
 
-router.get('/sisgoadem',(req,res)=>res.send('Obteniendo Empleados'))
-router.post('/sisgoadem',(req,res)=>res.send('Creando Empleados'))
-router.put('/sisgoadem',(req,res)=>res.send('Actualizando Empleados'))
-router.delete('/sisgoadem',(req,res)=>res.send('Eliminando Empleados'))
+router.get('/sisgoadem', getSisgoadem)
+router.post('/sisgoadem', createSisgoadem)
+router.put('/sisgoadem', updateSisgoadem)
+router.delete('/sisgoadem',deleteSisgoadem)
 
 
 export default router
