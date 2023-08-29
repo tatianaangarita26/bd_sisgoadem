@@ -1,6 +1,9 @@
 import express from 'express'
+import { pool } from './db.js'
 
 const app = express()
+
+app.get('/ping',(req,res) => res.send('Pong'))
 
 app.get('/employees',(req,res)=>res.send('Obteniendo Empleados'))
 app.post('/employees',(req,res)=>res.send('Creando Empleados'))
