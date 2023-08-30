@@ -1,6 +1,8 @@
 import { Router } from "express";
-import { pool } from "../db";
+import { ping } from '../controllers/index.controller.js'
 
 const router = Router()
 
-router.get('/ping', async())
+router.get('/ping', ping)
+
+export default router
