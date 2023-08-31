@@ -28,3 +28,26 @@ export const getPedido = async (req, res) => {
         });
     } 
 };
+
+export const createPedidos = async (req,res) => {
+    try{
+        const {id_pedido, hora, fecha, estado, id_platos} = req.body
+        const [rows] = await pool.query(
+            "INSERT INTO pedidos (id_pedido, hora, fecha, estado, id_platos) VALUES (?, ?, ?, ?, ?)",
+             [id_pedido, hora, fecha, estado, id_platos]
+        );
+    res.send({ 
+        id: rows.insertId,
+        id_pedido,
+        hora,
+        fecha,
+        estado,
+        id_platos
+    });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Algo va mal",
+        });
+    }
+
+};
