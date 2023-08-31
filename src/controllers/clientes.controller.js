@@ -13,7 +13,7 @@ export const getClientes = async (req,res) => {
 
 export const getCliente = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM cliente WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM clientes WHERE id = ?', [
             req.params.id,
         ]);
     
@@ -33,7 +33,7 @@ export const createClientes = async (req,res) => {
     try{
         const {nombre, apellido, telefono} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO cliente (nombre, apellido, telefono) VALUES (?, ?, ?)",
+            "INSERT INTO clientes (nombre, apellido, telefono) VALUES (?, ?, ?)",
              [nombre, apellido, telefono]
         );
     res.send({ 

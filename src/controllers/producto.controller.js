@@ -2,7 +2,7 @@ import { pool } from '../db.js'
 
 export const getProductos = async (req,res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM productos')
+        const [rows] = await pool.query('SELECT * FROM producto')
         res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -13,7 +13,7 @@ export const getProductos = async (req,res) => {
 
 export const getProducto = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM productos WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM producto WHERE id = ?', [
             req.params.id,
         ]);
     
@@ -33,7 +33,7 @@ export const createProductos = async (req,res) => {
     try{
         const {nombre, descripcion, precio, catidad_inventario} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO productos (nombre, descripcion, precio, catidad_inventario) VALUES (?, ?, ?, ?)",
+            "INSERT INTO producto (nombre, descripcion, precio, catidad_inventario) VALUES (?, ?, ?, ?)",
              [nombre, descripcion, precio, catidad_inventario]
         );
     res.send({ 
@@ -54,7 +54,7 @@ export const createProductos = async (req,res) => {
 
 export const deleteProducto = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM productos WHERE id = ?', [
+        const [result] = await pool.query('DELETE FROM producto WHERE id = ?', [
             req.params.id,
         ]);
     
@@ -76,7 +76,7 @@ export const updateProducto = async (req,res) => {
         const {nombre, descripcion, precio, catidad_inventario} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE productos SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion), precio = IFNULL(?,precio), catidad_inventario = IFNULL(?, catidad_inventario ) WHERE id = ?",
+            "UPDATE producto SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion), precio = IFNULL(?,precio), catidad_inventario = IFNULL(?, catidad_inventario ) WHERE id = ?",
              [nombre, descripcion, precio, catidad_inventario, id]
         );
 
@@ -85,7 +85,7 @@ export const updateProducto = async (req,res) => {
         message: 'Producto no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM productos WHERE id = ?',[
+    const [rows] = await pool.query('SELECT * FROM producto WHERE id = ?',[
         id,
     ]);
 

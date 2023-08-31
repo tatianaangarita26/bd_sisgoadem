@@ -3,11 +3,11 @@ import { getProductos, getProducto,  createProductos, updateProducto,  deletePro
 
 const router = Router()
 
-router.get('/productos', getProductos)
-router.get('/productos/:id', getProducto)
-router.post('/productos', createProductos)
-router.put('/productos/:id', updateProducto)
-router.delete('/productos/:id',deleteProducto)
+router.get('/producto', getProductos)
+router.get('/producto/:id', getProducto)
+router.post('/producto', createProductos)
+router.put('/producto/:id', updateProducto)
+router.delete('/producto/:id',deleteProducto)
 
 
 export default router
