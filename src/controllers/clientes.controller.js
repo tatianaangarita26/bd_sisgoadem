@@ -13,7 +13,7 @@ export const getClientes = async (req,res) => {
 
 export const getCliente = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM cliente WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM cliente WHERE id_cliente = ?', [
             req.params.id,
         ]);
     
