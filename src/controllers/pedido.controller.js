@@ -5,19 +5,21 @@ export const getPedidos = async (req,res) => {
         const [rows] = await pool.query('SELECT * FROM pedido')
         res.json(rows)
     } catch (error) {
-        return res.sendStatus(error)
+        return res.status(500).json({
+            message:'Algo va mal'
+        })
     }
 }
 
 export const getPedido = async (req, res) => {
     try{
         const [rows] = await pool.query('SELECT * FROM pedido WHERE id = ?', [
-            req.params.id
+            req.params.id,
         ]);
     
         if(rows.length <= 0)
          return res.status(404).json({
-        message: 'Pedido no encontrado'
+        message: 'Pedido no encontrado',
         });
         res.json(rows[0]);
     } catch (error) {
@@ -29,9 +31,9 @@ export const getPedido = async (req, res) => {
 
 export const createPedidos = async (req,res) => {
     try{
-        const {hora, fecha,} = req.body;
+        const {hora, fecha,} = req.body
         const [rows] = await pool.query(
-            'INSERT INTO pedido (hora, fecha,) VALUES (?, ?, ?)',
+            "INSERT INTO pedido (hora, fecha,) VALUES (?, ?, ?)",
              [hora, fecha,]
         );
     res.send({ 
@@ -72,7 +74,7 @@ export const updatePedido = async (req,res) => {
         const {hora, fecha} = req.body;
 
         const [result] = await pool.query(
-            'UPDATE pedido SET hora= IFNULL(?, hora), fecha = IFNULL(?,fecha) WHERE id = ?',
+            "UPDATE pedido SET hora= IFNULL(?, hora), fecha = IFNULL(?,fecha) WHERE id = ?",
              [hora, fecha, id]
         );
 

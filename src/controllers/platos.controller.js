@@ -5,19 +5,21 @@ export const getPlatos = async (req,res) => {
         const [rows] = await pool.query('SELECT * FROM platos')
         res.json(rows)
     } catch (error) {
-        return res.sendStatus(error)
+        return res.status(500).json({
+            message:'Algo va mal'
+        })
     }
 }
 
 export const getPlato = async (req, res) => {
     try{
         const [rows] = await pool.query('SELECT * FROM platos WHERE id = ?', [
-            req.params.id
+            req.params.id,
         ]);
     
         if(rows.length <= 0)
          return res.status(404).json({
-        message: 'Plato no encontrado'
+        message: 'Plato no encontrado',
         });
         res.json(rows[0]);
     } catch (error) {
@@ -29,9 +31,9 @@ export const getPlato = async (req, res) => {
 
 export const createPlatos = async (req,res) => {
     try{
-        const {nombre, descripcion} = req.body;
+        const {nombre, descripcion} = req.body
         const [rows] = await pool.query(
-            'INSERT INTO platos (nombre, descripcion) VALUES (?, ?)',
+            "INSERT INTO platos (nombre, descripcion) VALUES (?, ?)",
              [nombre, descripcion]
         );
     res.send({ 
@@ -72,7 +74,7 @@ export const updatePlato = async (req,res) => {
         const {nombre, descripcion} = req.body;
 
         const [result] = await pool.query(
-            'UPDATE platos SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion) WHERE id = ?',
+            "UPDATE platos SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion) WHERE id = ?",
              [nombre, descripcion, id]
         );
 

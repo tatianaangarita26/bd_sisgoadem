@@ -5,19 +5,21 @@ export const getClientes = async (req,res) => {
         const [rows] = await pool.query('SELECT * FROM cliente')
         res.json(rows)
     } catch (error) {
-        return res.sendStatus(error)
+        return res.status(500).json({
+            message:'Algo va mal'
+        })
     }
 }
 
 export const getCliente = async (req, res) => {
     try{
         const [rows] = await pool.query('SELECT * FROM cliente WHERE id = ?', [
-            req.params.id
+            req.params.id,
         ]);
     
         if(rows.length <= 0)
          return res.status(404).json({
-        message: 'Cliente no encontrado'
+        message: 'Cliente no encontrado',
         });
         res.json(rows[0]);
     } catch (error) {
@@ -29,9 +31,9 @@ export const getCliente = async (req, res) => {
 
 export const createClientes = async (req,res) => {
     try{
-        const {nombre, apellido, telefono} = req.body;
+        const {nombre, apellido, telefono} = req.body
         const [rows] = await pool.query(
-            'INSERT INTO cliente (nombre, apellido, telefono) VALUES (?, ?, ?)',
+            "INSERT INTO cliente (nombre, apellido, telefono) VALUES (?, ?, ?)",
              [nombre, apellido, telefono]
         );
     res.send({ 
@@ -73,7 +75,7 @@ export const updateCliente = async (req,res) => {
         const {nombre, apellido, telefono} = req.body;
 
         const [result] = await pool.query(
-            'UPDATE cliente SET nombre= IFNULL(?, nombre), apellido = IFNULL(?,apellido), telefono = IFNULL(?,telefono) WHERE id = ?',
+            "UPDATE cliente SET nombre= IFNULL(?, nombre), apellido = IFNULL(?,apellido), telefono = IFNULL(?,telefono) WHERE id = ?",
              [nombre, apellido, telefono, id]
         );
 
