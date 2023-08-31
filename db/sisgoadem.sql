@@ -28,7 +28,7 @@ INSERT INTO facturacion VALUES
 (103, 4, 203, '08:00 p.m', '28-09-2023');
 
 
-CREATE TABLE pedido (
+CREATE TABLE pedidos (
     id_pedido INT(20) NOT NULL PRIMARY KEY,
     hora VARCHAR(45) NOT NULL,
     fecha VARCHAR(45) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE pedido (
     id_platos INT(20) NOT NULL
 );  
 
-INSERT INTO pedido VALUES
+INSERT INTO pedidos VALUES
 (200, '03:00 p.m', '5-08-2023', "Cancelado", 300),
 (201, '08:00 p.m', '25-09-2023', "Activo", 301),
 (202, '05:00 p.m', '28-08-2023', "Pendiente", 302),

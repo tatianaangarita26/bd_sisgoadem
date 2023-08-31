@@ -13,7 +13,7 @@ export const getFacturacion = async (req,res) => {
 
 export const getFacturacionid = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM facturacion WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM facturacion WHERE id_factura = ?', [
             req.params.id,
         ]);
     

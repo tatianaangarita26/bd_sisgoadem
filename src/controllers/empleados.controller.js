@@ -13,7 +13,7 @@ export const getEmpleados = async (req,res) => {
 
 export const getEmpleado = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM empleados WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM empleados WHERE id_empleado = ?', [
             req.params.id,
         ]);
     
