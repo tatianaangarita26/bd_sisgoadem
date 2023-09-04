@@ -31,13 +31,13 @@ export const getEmpleado = async (req, res) => {
 
 export const createEmpleados = async (req,res) => {
     try{
-        const {nombre, apellido, salario} = req.body
+        const {id_empleado, nombre, apellido, salario} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO empleados (nombre, apellido, salario) VALUES (?, ?, ?)",
-             [nombre, apellido, salario]
+            "INSERT INTO empleados (id_empleado, nombre, apellido, salario) VALUES (?, ?, ?, ?)",
+             [id_empleado, nombre, apellido, salario]
         );
     res.send({ 
-        id: rows.insertId,
+        id_empleados: rows.insertId,
         nombre,
         apellido,
         salario
@@ -53,7 +53,7 @@ export const createEmpleados = async (req,res) => {
 
 export const deleteEmpleado = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM empleados WHERE id = ?', [
+        const [result] = await pool.query('DELETE FROM empleados WHERE id_empleado = ?', [
             req.params.id,
         ]);
     
@@ -71,12 +71,12 @@ export const deleteEmpleado = async (req,res) =>{
 
 export const updateEmpleado = async (req,res) => {
     try{
-        const {id} = req.params;
+        const {id_empleado} = req.params;
         const {nombre, apellido, salario} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE empleados SET nombre= IFNULL(?, nombre), apellido = IFNULL(?,apellido), salario = IFNULL(?,salario) WHERE id = ?",
-             [nombre, apellido, salario, id]
+            "UPDATE empleados SET nombre= IFNULL(?, nombre), apellido = IFNULL(?,apellido), salario = IFNULL(?,salario) WHERE id_empleado = ?",
+             [nombre, apellido, salario, id_empleado]
         );
 
     if(result.affectedRows === 0)
@@ -84,8 +84,8 @@ export const updateEmpleado = async (req,res) => {
         message: 'Empleado no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM empleados WHERE id = ?',[
-        id,
+    const [rows] = await pool.query('SELECT * FROM empleados WHERE id_empleado = ?',[
+        id_empleado,
     ]);
 
     res.json(rows[0])

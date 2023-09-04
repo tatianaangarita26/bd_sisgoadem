@@ -31,13 +31,13 @@ export const getCliente = async (req, res) => {
 
 export const createClientes = async (req,res) => {
     try{
-        const {nombre, apellido, telefono} = req.body
+        const {id_cliente, nombre, apellido, telefono} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO clientes (nombre, apellido, telefono) VALUES (?, ?, ?)",
-             [nombre, apellido, telefono]
+            "INSERT INTO cliente (id_cliente, nombre, apellido, telefono) VALUES (?, ?, ?, ?)",
+             [id_cliente, nombre, apellido, telefono]
         );
     res.send({ 
-        id: rows.insertId,
+        id_cliente: rows.insertId,
         nombre,
         apellido,
         telefono
@@ -53,7 +53,7 @@ export const createClientes = async (req,res) => {
 
 export const deleteCliente = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM cliente WHERE id = ?', [
+        const [result] = await pool.query('DELETE FROM cliente WHERE id_cliente = ?', [
             req.params.id,
         ]);
     
@@ -71,12 +71,12 @@ export const deleteCliente = async (req,res) =>{
 
 export const updateCliente = async (req,res) => {
     try{
-        const {id} = req.params;
+        const {id_cliente} = req.params;
         const {nombre, apellido, telefono} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE cliente SET nombre= IFNULL(?, nombre), apellido = IFNULL(?,apellido), telefono = IFNULL(?,telefono) WHERE id = ?",
-             [nombre, apellido, telefono, id]
+            "UPDATE cliente SET nombre = IFNULL(?, nombre), apellido = IFNULL(?, apellido), telefono = IFNULL(?, telefono) WHERE id_cliente = ?",
+             [nombre, apellido, telefono, id_cliente]
         );
 
     if(result.affectedRows === 0)
@@ -84,8 +84,8 @@ export const updateCliente = async (req,res) => {
         message: 'Cliente no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM cliente WHERE id = ?',[
-        id,
+    const [rows] = await pool.query('SELECT * FROM cliente WHERE id_cliente = ?',[
+        id_cliente,
     ]);
 
     res.json(rows[0])

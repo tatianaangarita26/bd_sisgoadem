@@ -31,13 +31,15 @@ export const getFacturacionid = async (req, res) => {
 
 export const createFacturacion = async (req,res) => {
     try{
-        const {hora, fecha} = req.body
+        const {id_factura, id_cliente, id_pedido, hora, fecha} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO facturacion (hora, fecha) VALUES (?, ?, ?)",
-             [hora, fecha]
+            "INSERT INTO facturacion (id_factura, id_cliente, id_pedido, hora, fecha) VALUES (?, ?, ?, ?, ?)",
+             [id_factura, id_cliente, id_pedido, hora, fecha]
         );
     res.send({ 
-        id: rows.insertId,
+        id_factura: rows.insertId,
+        id_cliente,
+        id_pedido,
         hora,
         fecha
     });
@@ -52,7 +54,7 @@ export const createFacturacion = async (req,res) => {
 
 export const deleteFacturacion = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM facturacion WHERE id = ?', [
+        const [result] = await pool.query('DELETE FROM facturacion WHERE id_factura = ?', [
             req.params.id,
         ]);
     
@@ -70,12 +72,12 @@ export const deleteFacturacion = async (req,res) =>{
 
 export const updateFacturacion = async (req,res) => {
     try{
-        const {id} = req.params;
-        const {fecha, hora} = req.body;
+        const {id_factura} = req.params;
+        const {id_cliente, id_pedido, fecha, hora} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE facturacion SET hora= IFNULL(?, hora), fecha = IFNULL(?,fecha)  WHERE id = ?",
-             [fecha, hora, id]
+            "UPDATE facturacion SET id_cliente = IFNULL(?, id_cliente), id_pedido = IFNULL(?, id_pedido), hora= IFNULL(?, hora), fecha = IFNULL(?,fecha)  WHERE id_factura = ?",
+             [id_cliente, id_pedido, fecha, hora, id_factura]
         );
 
     if(result.affectedRows === 0)
@@ -83,8 +85,8 @@ export const updateFacturacion = async (req,res) => {
         message: 'Facturacion no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM facturacion WHERE id = ?',[
-        id,
+    const [rows] = await pool.query('SELECT * FROM facturacion WHERE id_factura = ?',[
+        id_factura,
     ]);
 
     res.json(rows[0])

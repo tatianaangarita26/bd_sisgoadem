@@ -13,7 +13,7 @@ export const getRoles = async (req,res) => {
 
 export const getRol = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM roles WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM roles WHERE id_rol = ?', [
             req.params.id,
         ]);
     
@@ -31,13 +31,14 @@ export const getRol = async (req, res) => {
 
 export const createRoles = async (req,res) => {
     try{
-        const {nombre, apellido, cargo} = req.body
+        const {id_rol, id_empleado, nombre, apellido, cargo} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO roles (nombre, apellido, cargo) VALUES (?, ?, ?)",
-             [nombre, apellido, cargo]
+            "INSERT INTO roles (id_rol, id_empleado, nombre, apellido, cargo) VALUES (?, ?, ?, ?, ?)",
+             [id_rol, id_empleado, nombre, apellido, cargo]
         );
     res.send({ 
-        id: rows.insertId,
+        id_rol: rows.insertId,
+        id_empleado,
         nombre,
         apellido,
         cargo
@@ -53,7 +54,7 @@ export const createRoles = async (req,res) => {
 
 export const deleteRol = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM roles WHERE id = ?', [
+        const [result] = await pool.query('DELETE FROM roles WHERE id_rol = ?', [
             req.params.id,
         ]);
     
@@ -71,12 +72,12 @@ export const deleteRol = async (req,res) =>{
 
 export const updateRol = async (req,res) => {
     try{
-        const {id} = req.params;
-        const {nombre, apellido, cargo} = req.body;
+        const {id_rol} = req.params;
+        const {id_empleado, nombre, apellido, cargo} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE roles SET nombre= IFNULL(?, nombre), apellido = IFNULL(?,apellido), cargo = IFNULL(?,cargo) WHERE id = ?",
-             [nombre, apellido, cargo, id]
+            "UPDATE roles SET id_empleado= IFNULL(?, id_empleado), nombre= IFNULL(?, nombre), apellido = IFNULL(?,apellido), cargo = IFNULL(?,cargo) WHERE id_rol = ?",
+             [id_empleado, nombre, apellido, cargo, id_rol]
         );
 
     if(result.affectedRows === 0)
@@ -84,8 +85,8 @@ export const updateRol = async (req,res) => {
         message: 'Rol no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM roles WHERE id = ?',[
-        id,
+    const [rows] = await pool.query('SELECT * FROM roles WHERE id_rol = ?',[
+        id_rol,
     ]);
 
     res.json(rows[0])

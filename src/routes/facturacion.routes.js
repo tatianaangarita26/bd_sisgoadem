@@ -6,7 +6,7 @@ const router = Router()
 router.get('/facturacion/', getFacturacion)
 router.get('/facturacion/:id', getFacturacionid)
 router.post('/facturacion', createFacturacion)
-router.put('/facturacion/:id', updateFacturacion)
+router.patch('/facturacion/:id_factura', updateFacturacion)
 router.delete('/facturacion/:id',deleteFacturacion)
 
 
