@@ -63,7 +63,7 @@ INSERT INTO platos VALUES
 
 
 CREATE TABLE proveedores (
-    id_proveedores INT(20) NOT NULL PRIMARY KEY,
+    id_proveedores INT(20) PRIMARY KEY,
     nombre VARCHAR(45) NOT NULL,
     contacto VARCHAR(40) NOT NULL,
     empresa VARCHAR(40) NOT NULL,

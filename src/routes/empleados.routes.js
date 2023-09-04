@@ -6,7 +6,7 @@ const router = Router()
 router.get('/empleados', getEmpleados)
 router.get('/empleados/:id', getEmpleado)
 router.post('/empleados', createEmpleados)
-router.put('/empleados/:id', updateEmpleado)
+router.patch('/empleados/:id_empleado', updateEmpleado)
 router.delete('/empleados/:id',deleteEmpleado)
 
 
