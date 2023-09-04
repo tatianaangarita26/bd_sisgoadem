@@ -31,7 +31,7 @@ export const getCliente = async (req, res) => {
 
 export const createClientes = async (req,res) => {
     try{
-        const {nombre, apellido, telefono} = req.body
+        const {nombre, apellido, telefono} = req.body;
         const [rows] = await pool.query(
             "INSERT INTO clientes (nombre, apellido, telefono) VALUES (?, ?, ?)",
              [nombre, apellido, telefono]
@@ -40,14 +40,13 @@ export const createClientes = async (req,res) => {
         id: rows.insertId,
         nombre,
         apellido,
-        telefono
+        telefono,
     });
     } catch (error) {
         return res.status(500).json({
             message: "Algo va mal",
         });
     }
-
 };
 
 
