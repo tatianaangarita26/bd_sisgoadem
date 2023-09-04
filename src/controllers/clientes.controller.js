@@ -31,24 +31,24 @@ export const getCliente = async (req, res) => {
 
 export const createClientes = async (req,res) => {
     try{
-        const {nombre, apellido, telefono} = req.body;
+        const { nombre, apellido, telefono } = req.body;
         const [rows] = await pool.query(
-            "INSERT INTO clientes (nombre, apellido, telefono) VALUES (?, ?, ?)",
-             [nombre, apellido, telefono]
+            "INSERT INTO clientes (nombre, apellido, telefono) VALUES (?, ?)",
+            [nombre, apellido, telefono]
         );
-    res.send({ 
-        id: rows.insertId,
-        nombre,
-        apellido,
-        telefono,
-    });
-    } catch (error) {
+        res.send({
+            id: rows.insertId,
+            nombre,
+            apellido,
+            telefono,
+        });
+    } catch (error){
         return res.status(500).json({
             message: "Algo va mal",
         });
+        
     }
-};
-
+}; 
 
 export const deleteCliente = async (req,res) =>{
     try{

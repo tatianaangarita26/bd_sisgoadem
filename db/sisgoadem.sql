@@ -58,7 +58,7 @@ INSERT INTO platos VALUES
 (302, "Pollo", "arroz mazorca y aguacate", "Agotado", "$48.000"),
 (303, "Cerdo", "arroz mazorca y aguacate", "Activo", "$65.000");
 INSERT INTO platos VALUES
-(304, "Arroz", "arroz mazorca y aguacate", "efuihwvugr", "$58.000"),
+(304, "Arroz", "arroz mazorca y aguacate", "Activo", "$58.000"),
 
 
 
