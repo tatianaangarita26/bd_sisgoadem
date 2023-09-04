@@ -14,14 +14,14 @@ const app = express()
 app.use(express.json())
 
 app.use(indexRoutes)
-app.use('/api', clientesRoutes)
-app.use('/api', facturacionRoutes)
-app.use('/api', empleadosRoutes)
-app.use('/api', platosRoutes)
-app.use('/api', productoRoutes)
-app.use('/api', proveedoresRoutes)
-app.use('/api', rolesRoutes)
-app.use('/api', pedidosRoutes)
+app.use('/api',clientesRoutes)
+app.use('/api',facturacionRoutes)
+app.use('/api',empleadosRoutes)
+app.use('/api',platosRoutes)
+app.use('/api',productoRoutes)
+app.use('/api',proveedoresRoutes)
+app.use('/api',rolesRoutes)
+app.use('/api',pedidosRoutes)
 
 app.use((req, res, next) => {
     res.status(404).json({

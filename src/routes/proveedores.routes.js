@@ -4,10 +4,10 @@ import { getProveedores, getProveedor,  createProveedores, updateProveedor,  del
 const router = Router()
 
 router.get('/proveedores', getProveedores)
-router.get('/proveedores/:id', getProveedor)
+router.get('/proveedores/:id_proveedores', getProveedor)
 router.post('/proveedores', createProveedores)
-router.put('/proveedores/:id', updateProveedor)
-router.delete('/proveedores/:id',deleteProveedor)
+router.patch('/proveedores/:id_proveedores', updateProveedor)
+router.delete('/proveedores/:id_proveedores',deleteProveedor)
 
 
 export default router
