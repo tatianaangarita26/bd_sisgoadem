@@ -13,8 +13,8 @@ export const getProveedores = async (req,res) => {
 
 export const getProveedor = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM proveedores WHERE id = ?', [
-            req.params.id,
+        const [rows] = await pool.query('SELECT * FROM proveedores WHERE id_proveedores = ?', [
+            req.params.id_proveedores,
         ]);
     
         if(rows.length <= 0)
@@ -31,16 +31,17 @@ export const getProveedor = async (req, res) => {
 
 export const createProveedores = async (req,res) => {
     try{
-        const {nombre, contacto, empresa} = req.body
+        const {id_proveedores, nombre, contacto, empresa, id_producto} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO proveedores (nombre, contacto, empresa) VALUES (?, ?, ?)",
-             [nombre, contacto, empresa]
+            "INSERT INTO proveedores (id_proveedores, nombre, contacto, empresa, id_producto)VALUES (?, ?, ?, ?, ?)",
+             [id_proveedores, nombre, contacto, empresa, id_producto]
         );
     res.send({ 
-        id: rows.insertId,
+        id_proveedores,
         nombre,
         contacto,
-        empresa
+        empresa,
+        id_producto
     });
     } catch (error) {
         return res.status(500).json({
@@ -51,10 +52,11 @@ export const createProveedores = async (req,res) => {
 };
 
 
+
 export const deleteProveedor = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM proveedores WHERE id = ?', [
-            req.params.id,
+        const [result] = await pool.query('DELETE FROM proveedores WHERE id_proveedores = ?', [
+            req.params.id_proveedores,
         ]);
     
         if(result.affectedRows <= 0)
@@ -71,12 +73,12 @@ export const deleteProveedor = async (req,res) =>{
 
 export const updateProveedor = async (req,res) => {
     try{
-        const {id} = req.params;
+        const {id_proveedores} = req.params;
         const {nombre, contacto, empresa} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE proveedores SET nombre= IFNULL(?, nombre), contacto = IFNULL(?,contacto), empresa = IFNULL(?,empresa) WHERE id = ?",
-             [nombre, contacto, empresa, id]
+            "UPDATE proveedores SET nombre= IFNULL(?, nombre), contacto = IFNULL(?,contacto), empresa = IFNULL(?,empresa) WHERE id_proveedores = ?",
+             [nombre, contacto, empresa, id_proveedores]
         );
 
     if(result.affectedRows === 0)
@@ -84,8 +86,8 @@ export const updateProveedor = async (req,res) => {
         message: 'Proveedor no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM proveedores WHERE id = ?',[
-        id,
+    const [rows] = await pool.query('SELECT * FROM proveedores WHERE id_proveedores = ?',[
+        id_proveedores,
     ]);
 
     res.json(rows[0])
