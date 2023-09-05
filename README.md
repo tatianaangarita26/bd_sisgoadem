@@ -34,4 +34,4 @@ SISGOADEM es un proyecto formativo que gestiona los servicios de un restaurante,
 <br>
 <br>
 
-![Logo](./img/logo.jpg)
+![Logo](./img/logo.png)
