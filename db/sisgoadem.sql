@@ -78,12 +78,12 @@ INSERT INTO platos VALUES
 (303, "Cerdo", "arroz mazorca y aguacate", "Activo", "$65.000"),
 (304, "Arroz", "arroz mazorca y aguacate", "Activo", "$58.000"),
 
+(304, "Arroz", "arroz mazorca y aguacate", "Activo", "$58.000"),
 (305, "Carne", "arroz mazorca y aguacate", "Activo", "$58.000"),
 (306, "Pescado", "arroz mazorca y aguacate", "Activo", "$58.000"),
 (307, "Pollo", "arroz mazorca y aguacate", "Agotado", "$48.000"),
 (308, "Pollo", "arroz mazorca y aguacate", "Agotado", "$48.000"),
 (309, "Arroz", "arroz mazorca y aguacate", "Activo", "$58.000");
-
 CREATE TABLE proveedores (
     id_proveedores INT(20) PRIMARY KEY,
     nombre VARCHAR(45) NOT NULL,
