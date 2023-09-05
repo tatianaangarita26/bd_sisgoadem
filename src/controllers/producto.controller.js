@@ -13,7 +13,7 @@ export const getProductos = async (req,res) => {
 
 export const getProducto = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM producto WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM producto WHERE id_producto = ?', [
             req.params.id,
         ]);
     
@@ -31,16 +31,18 @@ export const getProducto = async (req, res) => {
 
 export const createProductos = async (req,res) => {
     try{
-        const {nombre, descripcion, precio, catidad_inventario} = req.body
+        const {id_producto, nombre, descripcion, precio, catidad_inventario, id_proveedores} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO producto (nombre, descripcion, precio, catidad_inventario) VALUES (?, ?, ?, ?)",
-             [nombre, descripcion, precio, catidad_inventario]);
+            "INSERT INTO producto (id_producto, nombre, descripcion, precio, catidad_inventario, id_proveedores) VALUES (?, ?, ?, ?, ?, ?)",
+             [id_producto, nombre, descripcion, precio, catidad_inventario, id_proveedores]
+        );
     res.send({ 
-        id: rows.insertId,
+        id_producto: rows.insertId,
         nombre,
         descripcion,
-        precio, 
-        catidad_inventario
+        precio,
+        catidad_inventario, 
+        id_proveedores
     });
     } catch (error) {
         return res.status(500).json({
@@ -53,7 +55,7 @@ export const createProductos = async (req,res) => {
 
 export const deleteProducto = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM producto WHERE id = ?', [
+        const [result] = await pool.query('DELETE FROM producto WHERE id_producto = ?', [
             req.params.id,
         ]);
     
@@ -71,12 +73,12 @@ export const deleteProducto = async (req,res) =>{
 
 export const updateProducto = async (req,res) => {
     try{
-        const {id} = req.params;
-        const {nombre, descripcion, precio, catidad_inventario} = req.body;
+        const {id_producto} = req.params;
+        const {nombre, descripcion, precio, catidad_inventario, id_proveedores} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE producto SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion), precio = IFNULL(?,precio), catidad_inventario = IFNULL(?, catidad_inventario ) WHERE id = ?",
-             [nombre, descripcion, precio, catidad_inventario, id]
+            "UPDATE producto SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion), precio = IFNULL(?,precio), catidad_inventario = IFNULL(?, catidad_inventario ), id_proveedores = IFNULL(?, id_proveedores)  WHERE id_producto = ?",
+             [nombre, descripcion, precio, catidad_inventario, id_proveedores, id_producto]
         );
 
     if(result.affectedRows === 0)
@@ -84,8 +86,8 @@ export const updateProducto = async (req,res) => {
         message: 'Producto no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM producto WHERE id = ?',[
-        id,
+    const [rows] = await pool.query('SELECT * FROM producto WHERE id_producto = ?',[
+        id_producto,
     ]);
 
     res.json(rows[0])

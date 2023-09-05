@@ -6,7 +6,7 @@ const router = Router()
 router.get('/platos', getPlatos)
 router.get('/platos/:id', getPlato)
 router.post('/platos', createPlatos)
-router.put('/platos/:id', updatePlato)
+router.patch('/platos/:id_plato', updatePlato)
 router.delete('/platos/:id',deletePlato)
 
 

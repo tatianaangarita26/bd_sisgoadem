@@ -6,7 +6,7 @@ const router = Router()
 router.get('/roles', getRoles)
 router.get('/roles/:id', getRol)
 router.post('/roles', createRoles)
-router.put('/roles/:id', updateRol)
+router.patch('/roles/:id_rol', updateRol)
 router.delete('/roles/:id',deleteRol)
 
 

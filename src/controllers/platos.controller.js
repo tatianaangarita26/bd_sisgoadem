@@ -13,7 +13,7 @@ export const getPlatos = async (req,res) => {
 
 export const getPlato = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM platos WHERE id = ?', [
+        const [rows] = await pool.query('SELECT * FROM platos WHERE id_plato = ?', [
             req.params.id,
         ]);
     
@@ -31,15 +31,17 @@ export const getPlato = async (req, res) => {
 
 export const createPlatos = async (req,res) => {
     try{
-        const {nombre, descripcion} = req.body
+        const {nombre, descripcion, estado, precio} = req.body
         const [rows] = await pool.query(
-            "INSERT INTO platos (nombre, descripcion) VALUES (?, ?)",
-             [nombre, descripcion]
+            "INSERT INTO platos (nombre, descripcion, estado, precio) VALUES (?, ?, ?, ?)",
+             [nombre, descripcion, estado, precio]
         );
     res.send({ 
-        id: rows.insertId,
+        id_plato: rows.insertId,
         nombre,
-        descripcion
+        descripcion,
+        estado,
+        precio
     });
     } catch (error) {
         return res.status(500).json({
@@ -52,7 +54,7 @@ export const createPlatos = async (req,res) => {
 
 export const deletePlato = async (req,res) =>{
     try{
-        const [result] = await pool.query('DELETE FROM platos WHERE id = ?', [
+        const [result] = await pool.query('DELETE FROM platos WHERE id_plato = ?', [
             req.params.id,
         ]);
     
@@ -70,12 +72,12 @@ export const deletePlato = async (req,res) =>{
 
 export const updatePlato = async (req,res) => {
     try{
-        const {id} = req.params;
-        const {nombre, descripcion} = req.body;
+        const {id_plato} = req.params;
+        const {nombre, descripcion, estado, precio} = req.body;
 
         const [result] = await pool.query(
-            "UPDATE platos SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion) WHERE id = ?",
-             [nombre, descripcion, id]
+            "UPDATE platos SET nombre= IFNULL(?, nombre), descripcion = IFNULL(?,descripcion), estado= IFNULL(?, estado), precio= IFNULL(?, precio) WHERE id_plato = ?",
+             [nombre, descripcion, estado, precio, id_plato]
         );
 
     if(result.affectedRows === 0)
@@ -83,8 +85,8 @@ export const updatePlato = async (req,res) => {
         message: 'Plato no encontrado',
     });
 
-    const [rows] = await pool.query('SELECT * FROM platos WHERE id = ?',[
-        id,
+    const [rows] = await pool.query('SELECT * FROM platos WHERE id_plato = ?',[
+        id_plato,
     ]);
 
     res.json(rows[0])
