@@ -77,20 +77,14 @@ INSERT INTO platos VALUES
 (300, "pescado", "arroz mazorca y aguacate", "Activo", "$58.000"),
 (301, "Carne", "arroz mazorca y aguacate", "Activo", "$38.000"),
 (302, "Pollo", "arroz mazorca y aguacate", "Agotado", "$48.000"),
-<<<<<<< HEAD
 (303, "Cerdo", "arroz mazorca y aguacate", "Activo", "$65.000");
-=======
-(303, "Cerdo", "arroz mazorca y aguacate", "Activo", "$65.000"),
-(304, "Arroz", "arroz mazorca y aguacate", "Activo", "$58.000"),
 
+(304, "Arroz", "arroz mazorca y aguacate", "Activo", "$58.000"),
 (305, "Carne", "arroz mazorca y aguacate", "Activo", "$58.000"),
 (306, "Pescado", "arroz mazorca y aguacate", "Activo", "$58.000"),
 (307, "Pollo", "arroz mazorca y aguacate", "Agotado", "$48.000"),
 (308, "Pollo", "arroz mazorca y aguacate", "Agotado", "$48.000"),
 (309, "Arroz", "arroz mazorca y aguacate", "Activo", "$58.000");
-
->>>>>>> 0746495bc1e48343031521f29728ffce76a23b00
-
 CREATE TABLE proveedores (
     id_proveedores INT(20) PRIMARY KEY,
     nombre VARCHAR(45) NOT NULL,
